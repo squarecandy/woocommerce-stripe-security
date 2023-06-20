@@ -3,6 +3,7 @@
 This documentation for Stripe setup and accompanying mu-plugin resolves two major security issues identified in the default Stripe setup with WooCommerce and other WP Plugins:
 
 1) Stripe's default "Standard Key" API key system allows you to take all actions on their system. This allows for massive potential abuse if the keys ever get compromised, such as the [incident documented by Shannon Mattern](https://webdesigneracademy.com/my-stripe-account-was-hacked-and-stripe-said-i-have-to-repay-70k/).
+
 2) WooCommerce default storage for Stripe keys is in the WordPress database in plain text. This means any compromise of the database is also a compromise of your Stripe API keys and a potential major financial liablity.
 
 *Note: this is not a normal WordPress Plugin. You must install everything according to the instructions below.*
@@ -23,7 +24,30 @@ PURPOSE. See the full LICENSE.
 
 **Create a restricted Stripe API key**
 
+* Login to your Stripe Dashboard and go to [Developers > API Keys](https://dashboard.stripe.com/test/apikeys)
+* Click **+ Create restricted key**
+* Give your key a meaningful name. Maybe "WooCommerce Key" or something similar.
+* If you can see a "Connect Permissions" column, set everything to "None". If you don't use Stripe Connect on your account, consider contacting support to get help having the feature fully disabled/removed. Basically, unless you're building a custom webapp where you have B2B customers that are going to have their own stripe accounts with their own banks attached, you don't need it and shouldn't risk someone getting permission to use it in malicious ways.
+* In the regular "Permissions" column, set all permissions to "None" except the following:
+    * Apple Pay Domains: Read
+    * Charges: Write
+    * Customers: Write
+    * Disputes: Write
+    * Events: Read
+    * Ephemeral keys: Read
+    * PaymentIntens: Write
+    * PaymentMethods: Write
+    * Products: Write
+    * Shipping Rates: Write
+    * SetupIntents: Write
+    * Sources: Write
+    * Tokens: Write
+    * Checkout Sessions: only set to Write if you plan to use the Stripe Checkout feature.
+    * Webhook Endpoints: Read
+    * Radar: Write
+* Click **Create key**
 
+_Note: The settings above are still experimental. Please help us test them and report back in the Issues cue._
 
 ## Part 2: Install the keys via wp-config instead of storing in the database
 
@@ -43,7 +67,7 @@ wget https://github.com/squarecandy/woocommerce-stripe-security/blob/main/square
 chmod 400 wp-content/mu-plugins/squarecandy-wc-stripe-keys.php
 ```
 
-Next install your keys in your wp-config file. The values below are samples. Add your real key values below.
+Next install your keys in your wp-config file. The values below are samples. Add your real key values below where you see the zeros.
 You can do so by manually editing `wp-config.php` with the following lines:
 
 ```
@@ -129,3 +153,4 @@ Once you have **FULLY TESTED** that everything is working as expected, you can g
 ## Roadmap
 
 * Change the GUI fields to disabled and provide information that the keys are being served via wp-config
+* Convince WC team to support wp-config keys without a bunch of workarounds and warning messages
