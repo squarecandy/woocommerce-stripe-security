@@ -1,4 +1,16 @@
 <?php
+/**
+ * Plugin Name: SquareCandy Stripe Keys Security for WooCommerce
+ * Description: Allows the WC Stripe settings to be loaded from constants defined in wp-config.php
+ * Author:      squarecandy
+ * License:     GNU General Public License v3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+// Basic security, prevents file from being loaded directly.
+defined( 'ABSPATH' ) or die( 'Cheatin&#8217; uh?' );
+
+// set the stripe keys via wp-config
 add_filter('option_woocommerce_stripe_settings', 'squarecandy_woocommerce_stripe_settings');
 function squarecandy_woocommerce_stripe_settings( $settings ) {
 
