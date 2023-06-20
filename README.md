@@ -120,10 +120,8 @@ or via WP CLI like this if you're starting from a fresh install:
 ```
 wp config set WC_STRIPE_TEST_PUBLISHABLE_KEY pk_test_00000000000000000000 --quiet
 wp config set WC_STRIPE_TEST_SECRET_KEY rk_test_00000000000000000000 --quiet
-
 wp config set WC_STRIPE_TEST_WEBHOOK_SECRET whsec_00000000000000000000 --quiet
-
-wp config set WC_STRIPE_TEST_PUBLISHABLE_KEY pk_live_00000000000000000000 --quiet
+wp config set WC_STRIPE_PUBLISHABLE_KEY pk_live_00000000000000000000 --quiet
 wp config set WC_STRIPE_SECRET_KEY rk_live_00000000000000000000 --quiet
 wp config set WC_STRIPE_WEBHOOK_SECRET whsec_00000000000000000000 --quiet
 ```
@@ -145,9 +143,9 @@ Or you can do it quickly via WP CLI like this:
 ```
 wp option patch insert woocommerce_stripe_settings test_publishable_key 'pk_test_123placeholder'
 wp option patch insert woocommerce_stripe_settings test_secret_key 'rk_test_123placeholder'
+wp option patch insert woocommerce_stripe_settings test_webhook_secret 'whsec_123placeholder'
 wp option patch insert woocommerce_stripe_settings publishable_key 'pk_live_123placeholder'
 wp option patch insert woocommerce_stripe_settings secret_key 'rk_live_123placeholder'
-wp option patch insert woocommerce_stripe_settings test_webhook_secret 'whsec_123placeholder'
 wp option patch insert woocommerce_stripe_settings webhook_secret 'whsec_123placeholder'
 ```
 
