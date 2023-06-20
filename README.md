@@ -52,6 +52,15 @@ You'll eventually need to repeat this process again in LIVE mode to create your 
 
 _Note: The settings above are still experimental. Please help us test them and report back in the Issues cue._
 
+## Part 1a: Test the restricted keys
+
+At this point, it would be good to just add your Test Restricted key as you normally would - by adding it in the WooCommerce > Settings > Payments panel.
+
+Please stop at this point and help us test the restriction settings above before proceeding to the next steps.
+
+Once things seem to be working smoothly, you can optionally complete the following steps to remove the keys from the WP database.
+
+  
 ## Part 2: Install the keys via wp-config instead of storing in the database
 
 First, install `squarecandy-wc-stripe-keys.php` as a must use plugin.
@@ -61,7 +70,7 @@ First, install `squarecandy-wc-stripe-keys.php` as a must use plugin.
 * copy `squarecandy-wc-stripe-keys.php` into the directory
 * change the permissions of `squarecandy-wc-stripe-keys.php` to 400 (Owner read only)
 
-You can do the above manually, just run these commands:
+You can do the above manually, or just run these commands:
 
 ```
 # start in your WP install home directory
@@ -84,7 +93,7 @@ define( 'WC_STRIPE_WEBHOOK_SECRET', 'whsec_000000000000' );
 ```
 
 or via WP CLI like this if you already installed your keys in the dashboard settings:
-(Note that the `--quiet` flag is important to keep your keys from being logged in your command history)
+(Note that the `--quiet` flag is to keep your keys from being logged in your command history. But you won't get Success or Fail messages back.)
 
 ```
 # Test Publishable Key - get the existing value from the database
@@ -109,25 +118,17 @@ wp config set WC_STRIPE_WEBHOOK_SECRET `wp option pluck woocommerce_stripe_setti
 or via WP CLI like this if you're starting from a fresh install:
 
 ```
-# Test Publishable Key - get the existing value from the database
 wp config set WC_STRIPE_TEST_PUBLISHABLE_KEY pk_test_00000000000000000000 --quiet
-
-# Test Secret Key - use your new Restricted Key value.
 wp config set WC_STRIPE_TEST_SECRET_KEY rk_test_00000000000000000000 --quiet
 
-# Test Webhook - get the existing value from the database
 wp config set WC_STRIPE_TEST_WEBHOOK_SECRET whsec_00000000000000000000 --quiet
 
-# Live Publishable Key - get the existing value from the database
 wp config set WC_STRIPE_TEST_PUBLISHABLE_KEY pk_live_00000000000000000000 --quiet
-
-# Live Secret Key - use your new Restricted Key value.
 wp config set WC_STRIPE_SECRET_KEY rk_live_00000000000000000000 --quiet
-
-# Live Webhook - get the existing value from the database
 wp config set WC_STRIPE_WEBHOOK_SECRET whsec_00000000000000000000 --quiet
 ```
 
+  
 ## Part 3: Clean Up the old insecure Standard Keys
 
 ### Delete the old values from the database
@@ -154,7 +155,9 @@ wp option patch insert woocommerce_stripe_settings webhook_secret 'whsec_123plac
 
 ### Roll any Standard Keys
 
-Once you have **FULLY TESTED** that everything is working as expected, you can go back to https://dashboard.stripe.com/test/apikeys and under Standard Keys > Secret Key, click `•••` and choose Roll key. Seriously though - don't proceed with this step until you're ready and unless you really understand the potential consequenses.
+Once you have **FULLY TESTED** that everything is working as expected, you can go back to https://dashboard.stripe.com/test/apikeys and under Standard Keys > Secret Key, click `•••` and choose Roll key. 
+
+Warning: don't proceed with this step until you're ready and unless you really understand the potential consequenses.
 
 ## Roadmap
 
