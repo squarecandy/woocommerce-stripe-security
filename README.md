@@ -30,20 +30,8 @@ PURPOSE. See the full [LICENSE](https://github.com/squarecandy/woocommerce-strip
 * Give your key a meaningful name. Maybe "WooCommerce Key" or something similar.
 * If you can see a "Connect Permissions" column, set everything to "None". If you don't use Stripe Connect on your account, consider contacting support to get help having the feature fully disabled/removed. Basically, unless you're building a custom webapp where you have B2B customers that are going to have their own stripe accounts with their own banks attached, you don't need it and shouldn't risk someone getting permission to use it in malicious ways.
 * In the regular "Permissions" column, set all permissions to "None" except the following:
-    * Apple Pay Domains: Read
-    * Charges: Write
-    * Customers: Write
-    * Disputes: Write
-    * Events: Read
-    * Ephemeral keys: Read
-    * PaymentIntens: Write
-    * PaymentMethods: Write
-    * Products: Write
-    * Shipping Rates: Write
-    * SetupIntents: Write
-    * Sources: Write
-    * Tokens: Write
-    * Checkout Sessions: only set to Write if you plan to use the Stripe Checkout feature.
+    * All core resources: Write
+    * Checkout Sessions: only set to Write if you plan to use the Stripe Checkout feature; otherwise set to None.
     * Webhook Endpoints: Read
     * Radar: Write
 * Click **Create key**
