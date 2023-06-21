@@ -60,7 +60,7 @@ Please stop at this point and help us test the restriction settings above before
 Once things seem to be working smoothly, you can optionally complete the following steps to remove the keys from the WP database.
 
   
-## Part 2: Install the keys via wp-config instead of storing in the database
+## Part 2: Install the keys via env vars or wp-config instead of storing in the database
 
 ### 2a - MU Plugin
 
